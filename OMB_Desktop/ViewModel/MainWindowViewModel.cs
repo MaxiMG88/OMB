@@ -1,7 +1,6 @@
 ﻿using System;
 using Entidades;
 using GalaSoft.MvvmLight;
-using OMB_Desktop.Common;
 using Prism.Interactivity.InteractionRequest;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -58,6 +57,8 @@ namespace OMB_Desktop.ViewModel
 
     public InteractionRequest<IConfirmation> ConfirmarComando { get; set; }
 
+    //public InteractionRequest<INotification> DisplayBookAdd { get; set; }
+
     /*
       InteractionRequest es la manera que tiene la ui de avisarnos que existe un pedido del
       usuario para por ejemplo mostrar unn dialogo
@@ -70,14 +71,20 @@ namespace OMB_Desktop.ViewModel
     {
       DisplayLogin = new InteractionRequest<INotification>();
 
+      //DisplayBookAdd = new InteractionRequest<INotification>();
+
       Login = new RelayCommand(() =>
       {
-        DisplayLogin.Raise(new Notification() { Title = "Ingreso al sistema" }, LoginTerminado);
+        DisplayLogin.Raise(new Notification()
+        {
+            Title = "Ingreso al sistema",
+            Content = "Prueba"
+        }, LoginTerminado);
       }, CanLogin);
 
       Logout = new RelayCommand(() =>
       {
-        SecurityServices serv = new SecurityServices(null);
+        SecurityServices serv = new SecurityServices();
 
         serv.Logout();
         Usuario = null;
